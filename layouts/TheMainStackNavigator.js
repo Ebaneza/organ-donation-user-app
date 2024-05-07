@@ -1,12 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TheSignUpPage from "../pages/TheSignUpPage";
 import TheLoginPage from "../pages/TheLoginPage";
+import TheHomePage from "../pages/TheHomePage";
 
 const Stack = createNativeStackNavigator();
 
 const TheMainStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="SignUp">
+    <Stack.Navigator initialRouteName="EJ Donor">
+      <Stack.Screen name="EJ Donor" component={TheHomePage} />
       <Stack.Screen name="SignUp" component={TheSignUpPage} />
       <Stack.Screen name="Login" component={TheLoginPage} />
     </Stack.Navigator>

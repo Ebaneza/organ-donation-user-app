@@ -5,7 +5,6 @@ import { StyleSheet, Text, View, Button, ScrollView } from "react-native";
 import TheTextInput from "../components/TheTextInput";
 import { useForm, Controller, reset } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
-// import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const TheSignUpPage = () => {
   const {
@@ -233,13 +232,6 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     padding: 20,
   },
-
-  // logoDiv: {
-  //   backgroundColor: '#FFF2D7',
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   padding: 3
-  // },
 
   brandName: {
     paddingTop: 10,

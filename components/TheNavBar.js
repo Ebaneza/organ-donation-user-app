@@ -25,15 +25,13 @@ const TheNavBar = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
-    logoDiv: {
-          backgroundColor: '#FFF2D7',
-          flexDirection: 'row',
-          alignItems: 'center',
-          padding: 3
-        },
-})
-
+  logoDiv: {
+    backgroundColor: "#FFF2D7",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 3,
+  },
+});
 
 export default TheNavBar;
