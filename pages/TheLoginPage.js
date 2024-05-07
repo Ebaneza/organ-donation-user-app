@@ -8,12 +8,16 @@ import {
 import TheNavBar from "../components/TheNavBar";
 import TheTextInput from "../components/TheTextInput";
 import { useForm, Controller } from "react-hook-form";
+import { useNavigation } from "@react-navigation/native";
 
 const TheLoginPage = () => {
+  const navigation = useNavigation();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       username: "",
@@ -21,9 +25,53 @@ const TheLoginPage = () => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // alert(data);
-    console.log(data);
+    // console.log(data);
+
+    const API_URL =
+      "http://192.168.1.8:8080/organ-donation-admin/donor/donor-login.php";
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(data),
+      });
+
+      if (response.status == 200) {
+        const jsonData = await response.json();
+        const responseMsg = jsonData[0].message;
+
+        if (responseMsg == "Username is not exist!") {
+          alert("Username does not exist!");
+        } else if (responseMsg == "Password Mismatched!") {
+          alert("Password Mismatched!");
+        } else {
+          alert(
+            "Dear Donor! Your login process has been proceed successfully!"
+          );
+
+          // responseMsg = 1;
+          // console.log(responseMsg);
+          // Need to send user id using GET.
+          navigation.navigate("Donor", { responseMsg });
+
+          reset({
+            username: "",
+            password: "",
+          });
+        }
+      } else {
+        alert("Currently we are facing technical issue! Please try again.");
+      }
+    } catch (error) {
+      console.error("Error from Donor login: " + error);
+    }
   };
 
   return (
