@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -8,6 +10,19 @@ import {
 } from "react-native";
 
 const TheHomePage = () => {
+  const navigate = useNavigation();
+
+  // Function to navigate Login page when Login Button clicked.
+  const navigateToLoginPage = () => {
+    navigate.navigate("Login");
+    // console.log();
+  };
+
+  // Function to navigate Sign-up page when Signup Button clicked.
+  const navigateToSignUpPage = () => {
+    navigate.navigate("SignUp");
+  };
+
   return (
     <View style={styles.container}>
       {/* Logo */}
@@ -23,31 +38,31 @@ const TheHomePage = () => {
       {/* Greeting Text */}
       <Text style={styles.greetMsg}> Welcome to EJ Donor </Text>
 
-      {/* Sign Up Button */}
-      <TouchableOpacity style={styles.btnSignUp}>
+      {/* Login Button */}
+      <TouchableOpacity style={styles.btnLogin} onPress={navigateToLoginPage}>
         <Text
           style={{
+            textAlign: "center",
+            fontSize: 18,
             color: "#FFF",
+            fontWeight: 500,
+          }}
+        >
+          Login
+        </Text>
+      </TouchableOpacity>
+
+      {/* Sign Up Button */}
+      <TouchableOpacity style={styles.btnSignUp} onPress={navigateToSignUpPage}>
+        <Text
+          style={{
+            color: "#B27946",
             fontSize: 18,
             fontWeight: 500,
             textAlign: "center",
           }}
         >
           Sign-Up
-        </Text>
-      </TouchableOpacity>
-
-      {/* Login Button */}
-      <TouchableOpacity style={styles.btnLogin}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 18,
-            color: "#B27946",
-            fontWeight: 500,
-          }}
-        >
-          Login
         </Text>
       </TouchableOpacity>
     </View>
@@ -89,10 +104,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
-    marginBottom: 10,
+    borderColor: "#B27946",
     padding: 15,
-    backgroundColor: "#B27946",
+    borderWidth: 2,
     textAlign: "center",
     borderRadius: 50,
     flexDirection: "row",
@@ -102,10 +116,12 @@ const styles = StyleSheet.create({
 
   btnLogin: {
     flexDirection: "row",
-    borderWidth: 2,
-    borderColor: "#B27946",
+
+    marginTop: 20,
+    marginBottom: 10,
+    backgroundColor: "#B27946",
     borderRadius: 50,
-    padding: 13,
+    padding: 15,
     justifyContent: "center",
     alignItems: "center",
   },
