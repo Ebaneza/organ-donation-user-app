@@ -32,6 +32,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 3,
   },
+
+  brandName: {
+    paddingTop: 10,
+    paddingRight: 5,
+    fontSize: 19,
+    fontWeight: "bold",
+    color: "#B27946",
+  },
 });
 
 export default TheNavBar;

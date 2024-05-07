@@ -64,6 +64,7 @@ const TheSignUpPage = () => {
       console.error("Error Occured: " + error);
     }
   };
+
   return (
     <View style={[styles.container, styles.logoDesign]}>
       {/* Screen header part: Logo & Name */}
@@ -231,12 +232,6 @@ const styles = StyleSheet.create({
   logoDesign: {
     paddingTop: 50,
     padding: 20,
-  },
-
-  brandName: {
-    paddingTop: 10,
-    paddingRight: 20,
-    fontSize: 20,
   },
 
   username: {
