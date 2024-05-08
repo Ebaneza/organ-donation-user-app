@@ -22,6 +22,7 @@ const TheDonorPage = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       name: "",
@@ -53,12 +54,20 @@ const TheDonorPage = () => {
 
       if (response.status == 200) {
         const jsonData = await response.json();
+        // const jsonData = await response.json();
+        // console.log(jsonData);
 
         const { message } = jsonData[0];
 
         alert(message);
-        // const jsonData = await response.json();
-        // console.log(jsonData);
+
+        reset({
+          name: "",
+          age: "",
+          desc: "",
+          bloodGroup: "",
+          willingOrgan: "",
+        });
       }
     } catch (error) {
       console.error("Error Occured: " + error);
