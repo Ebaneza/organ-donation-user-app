@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import TheTextInput from "../components/TheTextInput";
+import { useForm, Controller } from "react-hook-form";
 import SelectDropdown from "react-native-select-dropdown";
 
 const TheDonorPage = () => {
@@ -15,7 +16,56 @@ const TheDonorPage = () => {
   const donorId = route.params.responseMsg;
 
   const [username, setUsername] = useState("");
+  // console.log(username);
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      age: "",
+      desc: "",
+      bloodGroup: "",
+      willingOrgan: "",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    const requiredData = { ...data, userIdFK: donorId };
+
+    // console.log(requiredData);
+
+    const API_URL =
+      "http://192.168.1.8:8080/organ-donation-admin/donor/donor-registration.php";
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(requiredData),
+      });
+
+      if (response.status == 200) {
+        const jsonData = await response.json();
+
+        const { message } = jsonData[0];
+
+        alert(message);
+        // const jsonData = await response.json();
+        // console.log(jsonData);
+      }
+    } catch (error) {
+      console.error("Error Occured: " + error);
+    }
+  };
+
+  // Fetch data from Database
   useEffect(() => {
     const getLoggedInUsername = async (id) => {
       const API_URL =
@@ -37,7 +87,7 @@ const TheDonorPage = () => {
           const jsonData = await response.json();
           const username = jsonData[0].username;
 
-          console.log();
+          // console.log();
           setUsername(username);
         } else {
           setUsername("Guest");
@@ -57,36 +107,113 @@ const TheDonorPage = () => {
       </Text>
 
       <ScrollView automaticallyAdjustKeyboardInsets={true}>
+        {/* Name */}
         <View style={[styles.mb, { marginTop: 40 }]}>
           <Text style={styles.label}>Name</Text>
-          <TheTextInput placeholder="Enter your name" />
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TheTextInput
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                placeholder="Enter your name"
+              />
+            )}
+            name="name"
+          />
+          {errors.name && (
+            <Text style={styles.errorMsg}>Name can not be empty.</Text>
+          )}
         </View>
 
+        {/* Age */}
         <View style={styles.mb}>
           <Text style={styles.label}>Age</Text>
-          <TheTextInput placeholder="Enter your age" />
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TheTextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder="Enter your age"
+              />
+            )}
+            name="age"
+          />
+          {errors.age && (
+            <Text style={styles.errorMsg}>Age can not be empty.</Text>
+          )}
         </View>
 
+        {/* Description */}
         <View style={styles.mb}>
           <Text style={styles.label}>Description</Text>
-          <TheTextInput
-            placeholder="Enter the description"
-            multiline={true}
-            numberOfLines={70}
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TheTextInput
+                placeholder="Enter your description"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name="desc"
           />
+          {errors.desc && (
+            <Text style={styles.errorMsg}>Description can not be empty.</Text>
+          )}
         </View>
 
         <View style={styles.mb}>
           <Text style={styles.label}>Blood Group</Text>
-          <TheTextInput placeholder="Enter your blood group" />
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TheTextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder="Enter your blood group"
+              />
+            )}
+            name="bloodGroup"
+          />
+          {errors.bloodGroup && (
+            <Text style={styles.errorMsg}>Blood Group can not be empty.</Text>
+          )}
         </View>
 
         <View style={styles.mb}>
           <Text style={styles.label}>Organ willing to dontate</Text>
-          <TheTextInput placeholder="Ex: Liver, Heart, Kidney..." />
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TheTextInput
+                placeholder="Ex: Liver, Heart, Kidney..."
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name="willingOrgan"
+          />
+          {errors.willingOrgan && (
+            <Text style={styles.errorMsg}>This field can not be empty.</Text>
+          )}
         </View>
 
-        <TouchableOpacity style={[styles.submitButton, { marginTop: 15 }]}>
+        <TouchableOpacity
+          style={[styles.submitButton, { marginTop: 15 }]}
+          onPress={handleSubmit(onSubmit)}
+        >
           <Text style={styles.buttonText}>Save Details</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -131,6 +258,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 40,
+  },
+
+  errorMsg: {
+    color: "red",
+    fontWeight: "500",
   },
 });
 

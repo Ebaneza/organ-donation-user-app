@@ -126,10 +126,10 @@ const TheLoginPage = () => {
 
         {/* Login Button */}
         <TouchableOpacity
-          style={{ marginTop: 20 }}
+          style={[styles.loginBtn, { marginTop: 20 }]}
           onPress={handleSubmit(onSubmit)}
         >
-          <Text style={styles.loginBtn}>Login</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -145,11 +145,15 @@ const styles = StyleSheet.create({
 
   loginBtn: {
     backgroundColor: "#B27946",
-    padding: 14,
+    padding: 18,
+    borderRadius: 10,
+    textAlign: "center",
+  },
+
+  buttonText: {
     color: "#FFF",
     fontSize: 18,
     fontWeight: "bold",
-    borderRadius: 10,
     textAlign: "center",
   },
 
