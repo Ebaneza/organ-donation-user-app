@@ -6,6 +6,8 @@ const TheTextInput = ({
   onChangeText,
   placeholder,
   secureTextEntry = false,
+  multiline = false,
+  numberOfLines = 0,
 }) => {
   return (
     <TextInput
@@ -15,6 +17,8 @@ const TheTextInput = ({
       placeholder={placeholder}
       placeholderTextColor="#000"
       secureTextEntry={secureTextEntry}
+      multiline={multiline}
+      numberOfLines={numberOfLines}
     />
   );
 };
