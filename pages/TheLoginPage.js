@@ -81,7 +81,7 @@ const TheLoginPage = () => {
       <ScrollView automaticallyAdjustKeyboardInsets={true}>
         {/* Username */}
         <View style={{ marginTop: 100 }}>
-          <Text style={styles.label}>Username</Text>
+          <Text style={styles.label}>Email</Text>
           <Controller
             control={control}
             rules={{
@@ -92,13 +92,15 @@ const TheLoginPage = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder="Enter you username"
+                placeholder="Enter your email"
+                autoCapitalize="none"
+                inputMode="email"
               />
             )}
             name="username"
           />
           {errors.username && (
-            <Text style={styles.errorMsg}>Username can not be empty.</Text>
+            <Text style={styles.errorMsg}>Email can not be empty.</Text>
           )}
         </View>
 

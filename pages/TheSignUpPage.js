@@ -1,7 +1,14 @@
 import React from "react";
 import TheNavBar from "../components/TheNavBar";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import TheTextInput from "../components/TheTextInput";
 import { useForm, Controller, reset } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
@@ -89,6 +96,7 @@ const TheSignUpPage = () => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
+                  autoCapitalize="words"
                 />
               )}
               name="username"
@@ -138,6 +146,8 @@ const TheSignUpPage = () => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   placeholder="Enter your email"
+                  inputMode="email"
+                  autoCapitalize="none"
                 />
               )}
               name="email"
@@ -186,6 +196,7 @@ const TheSignUpPage = () => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   placeholder="Enter your Address"
+                  inputMode="tel"
                 />
               )}
               name="contact"
@@ -199,13 +210,16 @@ const TheSignUpPage = () => {
 
           <View style={{ marginTop: 15, marginBottom: 30 }}>
             {/* Submit Button */}
-            <View style={styles.submitButton}>
-              <Button
-                title="Create Account"
-                color="#FFF2D7"
-                onPress={handleSubmit(onSubmit)}
-              />
-            </View>
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text
+                style={{ color: "#fff", textAlign: "center", fontSize: 18 }}
+              >
+                Create Account
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -255,7 +269,7 @@ const styles = StyleSheet.create({
 
   submitButton: {
     backgroundColor: "#b27946",
-    padding: 10,
+    padding: 15,
     borderRadius: 10,
   },
 

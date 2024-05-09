@@ -1,0 +1,2 @@
+1. Need to change user registration DB columns
+2. Need to change email field in simple case

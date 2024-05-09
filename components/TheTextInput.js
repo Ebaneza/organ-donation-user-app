@@ -6,8 +6,8 @@ const TheTextInput = ({
   onChangeText,
   placeholder,
   secureTextEntry = false,
-  multiline = false,
-  numberOfLines = 0,
+  autoCapitalize = "sentences",
+  inputMode = "text",
 }) => {
   return (
     <TextInput
@@ -15,10 +15,9 @@ const TheTextInput = ({
       value={value}
       onChangeText={onChangeText}
       placeholder={placeholder}
-      placeholderTextColor="#000"
       secureTextEntry={secureTextEntry}
-      multiline={multiline}
-      numberOfLines={numberOfLines}
+      autoCapitalize={autoCapitalize}
+      inputMode={inputMode}
     />
   );
 };
